@@ -13,7 +13,7 @@ def save():
     if len(website) == 0 or len(password) == 0:
         web_warning = messagebox.showwarning(title="Website is blank", message="Please don't leave any fields empty")
     else:
-        is_ok = messagebox.askokcancel(title=website, message=f"Thse are the details entered: \nEmail: {email} \n"
+        is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \nEmail: {email} \n"
                                                               f" Password: {password} \n "f"Is it ok to save?")
         if is_ok:
             with open("data.txt", "a") as data_file:
