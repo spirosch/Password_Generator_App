@@ -1,5 +1,5 @@
 # Password_Generator_App
-A simple app for generating powerfull random passwords and save them directly to a txt file.
+A simple app for generating powerfu+l random passwords and save them directly to a txt file.
 
 Start by typing your informations:
 
