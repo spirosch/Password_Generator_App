@@ -1,8 +1,7 @@
 from password_generator import generate_password
 from tkinter import *
 from tkinter import messagebox
-import random
-import pyperclip
+
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
