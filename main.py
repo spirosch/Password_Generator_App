@@ -2,9 +2,9 @@ import random
 import pyperclip
 from tkinter import *
 from tkinter import messagebox
-
 import random
 import pyperclip
+import json
 
 
 # ---------------------------- PASSWORD MANAGER ------------------------------- #
@@ -41,17 +41,26 @@ def save():
     website = web_entry.get()
     email = user_email_entry.get()
     password = password_entry.get()
+    new_data = {website: {
+        "email": email,
+        "password": password,
+    }}
 
     if len(website) == 0 or len(password) == 0:
-        web_warning = messagebox.showwarning(title="Website is blank", message="Please don't leave any fields empty")
+        messagebox.showwarning(title="Website is blank", message="Please don't leave any fields empty")
     else:
-        is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \nEmail: {email} \n"
-                                                              f" Password: {password} \n "f"Is it ok to save?")
-        if is_ok:
-            with open("data.txt", "a") as data_file:
-                data_file.write(f"{website} | {email} | {password} \n")
-                web_entry.delete(0, END)
-                password_entry.delete(0, END)
+        with open("data.json", "r") as data_file:
+            # json updating
+            # 1) Reading old data
+            data = json.load(data_file)
+            # 2) Updating old data with new data
+            data.update(new_data)
+        with open("data.json", "w") as data_file:
+            # 3) Saving updated data
+            json.dump(data, data_file, indent=4)
+
+            web_entry.delete(0, END)
+            password_entry.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
