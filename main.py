@@ -37,6 +37,8 @@ def generate_password():
 #   when you press Generate, the password automatically saved to your clipboard for instant paste
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+
+
 def save():
     website = web_entry.get()
     email = user_email_entry.get()
@@ -71,6 +73,22 @@ def save():
             password_entry.delete(0, END)
 
 
+def find_password():
+    website = web_entry.get()
+    try:
+        with open("data.json") as data_file:
+            data = json.load(data_file)
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error", message="No Data File Found.")
+    else:
+        if website in data:
+            email = data[website]["email"]
+            password = data[website]["password"]
+            messagebox.showinfo(title=website, message=f"Email: {email} \nPassword: {password}")
+        else:
+            messagebox.showinfo(title="Error", message=f"No details for {website} exists")
+
+
 # ---------------------------- UI SETUP ------------------------------- #
 
 
@@ -95,8 +113,8 @@ password_label = Label(text="Password: ", font="bold")
 password_label.grid(column=0, row=3)
 
 # Entries
-web_entry = Entry(width=35)
-web_entry.grid(column=1, row=1, columnspan=2)
+web_entry = Entry(width=25)
+web_entry.grid(column=1, row=1)
 web_entry.focus()
 
 user_email_entry = Entry(width=35)
@@ -107,6 +125,8 @@ password_entry = Entry(width=25)
 password_entry.grid(column=1, row=3)
 
 # Buttons
+search_button = Button(text="Search", command=find_password)
+search_button.grid(column=2, row=1, columnspan=2)
 
 password_button = Button(text="Generate", command=generate_password)
 password_button.grid(column=2, row=3)
